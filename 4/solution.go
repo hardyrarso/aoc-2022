@@ -43,7 +43,7 @@ func main() {
 
 		log.Println("first:", firstElfSection)
 		log.Println("second:", secondElfSection)
-		if sectionIncludes(firstElfSection, secondElfSection) || sectionIncludes(secondElfSection, firstElfSection) {
+		if sectionOverlaps(firstElfSection, secondElfSection) || sectionOverlaps(secondElfSection, firstElfSection) {
 			log.Println("includes")
 			count++
 		}
@@ -58,6 +58,6 @@ func main() {
 	}
 }
 
-func sectionIncludes(a, b cleanupSection) bool {
-	return a.begin >= b.begin && a.end <= b.end
+func sectionOverlaps(a, b cleanupSection) bool {
+	return (a.end >= b.begin && a.end <= b.end) || (a.begin <= b.end && a.begin >= b.begin)
 }
